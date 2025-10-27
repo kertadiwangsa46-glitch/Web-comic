@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "api/proxy.js", "use": "@vercel/node" },
+    { "src": "*.html", "use": "@vercel/static" }
+  ],
+  "routes": [
+    {
+      "src": "^/index\\.html$",
+      "status": 308,
+      "headers": { "Location": "/" }
+    },
+    {
+      "src": "^/api/proxy/(.*)$",
+      "dest": "/api/proxy.js"
+    },
+    {
+      "src": "^/(.*)/?$",
+      "dest": "/$1.html"
+    },
+    {
+      "src": "^/$",
+      "dest": "/index.html"
+    }
+  ]
+}
